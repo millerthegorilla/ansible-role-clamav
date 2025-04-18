@@ -51,6 +51,15 @@ Changes to make to the configuration file that is read from when freshclam start
 
 Control whether the `clamav-freshclam` service is running and/or enabled on system boot.
 
+## libostree
+
+If you want the role to function with an immutable (ostree) file system, then you will
+need to define the following variable:
+```
+    ansible_package_use: community.general.rpm_ostree_package
+``` 
+Currently only Fedora and RHEL systems that support rpm_ostree are supported.
+
 ## Dependencies
 
 None.
