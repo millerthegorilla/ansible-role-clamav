@@ -12,7 +12,10 @@
 - name: Reboot if necessary (when rpm-ostree is package manager)
   ansible.builtin.reboot:
     msg: "Reboot initiated by Ansible"
-  when: 'ansible_package_use is defined and rpm_ostree_pkg in ansible_package_use'
+  when:
+    - ansible_package_use is defined
+    - '"{{ rpm_ostree_pkg }}" in ansible_package_use'
+    - clamav_packages_install.reboot_required
 
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
