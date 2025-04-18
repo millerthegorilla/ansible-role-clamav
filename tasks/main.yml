@@ -9,6 +9,11 @@
   with_items: "{{ clamav_packages | join(' ') }}"
   register: clamav_packages_install
 
+- name: Reboot if necessary (when rpm-ostree is package manager)
+  ansible.builtin.reboot:
+    msg: "Reboot initiated by Ansible"
+  when: 'ansible_package_use is defined and rpm_ostree_pkg in ansible_package_use'
+
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
   when: clamav_packages_install.changed
