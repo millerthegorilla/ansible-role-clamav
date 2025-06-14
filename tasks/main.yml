@@ -15,7 +15,7 @@
   when:
     - ansible_package_use is defined
     - '"rpm_ostree_pkg" in ansible_package_use'
-    - clamav_packages_install.needs_reboot
+    - clamav_packages_install.results[0].needs_reboot is true | bool
 
 - name: Run freshclam after ClamAV packages change.
   command: freshclam
